@@ -194,25 +194,18 @@ function addKeyValuePairs(dictionary, entries) {
 	let added = 0;
 	let rejected = 0;
 
-	entries.forEach((value, key) => {
+	entries.forEach(([key, value]) => {
 		if (dictionary.has(key)) {
-			rejected += 1;
+			rejected++;
 		} else {
 			dictionary.set(key, value);
-			added += 1;
+			added++;
 		}
-		return { dictionary, added, rejected }
-	})
 
-	// entries.forEach((value, key) => {
-	// 	if (dictionary.has(key)) {
-	// 		rejected += 1;
-	// 	} else {
-	// 		dictionary.set(key, value);
-	// 		added += 1;
-	// 	}
-	// 	console.log(dictionary, added, rejected)
-	// })
+	});
+
+	return { dictionary, added, rejected };
+
 }
 
 console.log("Завдання: 6 ==============================");
@@ -340,11 +333,12 @@ function getFilteredDictionarySize(dictionary, filter) {
 
 	const filteredMap = new Map();
 
-	for (let [key, value] of dictionary) {
+	for (let [key, value] of dictionary.entries()) {
 		if (filter(key, value)) {
 			filteredMap.set(key, value)
-		} return filteredMap.size
+		}
 	}
+	return filteredMap.size
 
 }
 
@@ -489,7 +483,7 @@ function convertSetToDictionary(set) {
 	// Повертаємо отриманий словник
 	const newDictionary = new Map();
 	for (let value of set) {
-		newDictionary[value] = value.charCodeAt(0)
+		newDictionary.set(value, value.charCodeAt(0))
 	} return newDictionary
 }
 
